@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AD</title>
+    <style>
+      /* Reset body and html to ensure full height in iframe */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+      }
+
+      .slider {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .slides {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        height: 100%;
+      }
+
+      .slide {
+        flex: 0 0 100%;
+        height: 100%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider">
+      <div id="slides" class="slides"></div>
+    </div>
+
+    <script>
+      // JSONP callback function
+      function callback(images) {
+        const slidesContainer = document.getElementById("slides");
+
+        // Create slides dynamically
+        images.forEach((url) => {
+          const slide = document.createElement("div");
+          slide.classList.add("slide");
+          const img = document.createElement("img");
+          img.src = url;
+          slide.appendChild(img);
+          slidesContainer.appendChild(slide);
+        });
+
+        // Auto-slide logic
+        let index = 0;
+        setInterval(() => {
+          index = (index + 1) % images.length;
+          slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+        }, 3000);
+      }
+
+      // Load the JSONP file dynamically
+      const script = document.createElement("script");
+      script.src = "images.js";
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
