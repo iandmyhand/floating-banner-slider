@@ -11,14 +11,13 @@
         padding: 0;
         width: 100%;
         height: 100%;
-        background-color: black;
       }
 
       .slider {
+        position: relative;
+        overflow: hidden;
         width: 100%;
         height: 100%;
-        overflow: hidden;
-        position: relative;
       }
 
       .slides {
@@ -37,18 +36,95 @@
         height: 100%;
         object-fit: contain;
       }
+
+      /* Page number style */
+      .page-number {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 16px;
+        padding: 4px 8px;
+        font-size: 11px;
+        color: white;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.6);
+      }
+
+      /* Navigation buttons style */
+      .nav-buttons {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 5px;
+      }
+
+      .nav-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 5px 2px 4px;
+        border: none;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+      }
+
+      .nav-button:last-child {
+        padding: 2px 4px 2px 5px;
+      }
+
+      .nav-button:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      img.chevron {
+        width: 15px;
+        height: 20px;
+      }
+
+      img.chevron.chevron-left {
+        transform: rotate(0deg);
+      }
+
+      img.chevron.chevron-right {
+        transform: rotate(180deg);
+      }
     </style>
   </head>
   <body>
     <div class="slider">
+      <!-- Slides Container -->
       <div id="slides" class="slides"></div>
+
+      <!-- Page Number -->
+      <div id="pageNumber" class="page-number">1/1</div>
+
+      <!-- Navigation Buttons -->
+      <div class="nav-buttons">
+        <button id="prevButton" class="nav-button">
+          <img src="icons/chevron-up.svg" class="chevron chevron-left" />
+        </button>
+        <button id="nextButton" class="nav-button">
+          <img src="icons/chevron-up.svg" class="chevron chevron-right" />
+        </button>
+      </div>
     </div>
 
     <script>
-      function callback(images) {
-        const slidesContainer = document.getElementById("slides");
+      let index = 0; // Current slide index
+      let images = []; // Image URLs array
 
-        // 슬라이드 생성
+      // JSONP callback function
+      function callback(imageUrls) {
+        images = imageUrls;
+        const slidesContainer = document.getElementById("slides");
+        const pageNumber = document.getElementById("pageNumber");
+
+        // Create slides
         images.forEach((url) => {
           const slide = document.createElement("div");
           slide.classList.add("slide");
@@ -58,16 +134,41 @@
           slidesContainer.appendChild(slide);
         });
 
-        // 슬라이드 자동넘기기
-        let index = 0;
-        setInterval(() => {
-          index = (index + 1) % images.length;
+        // Update page number
+        function updatePageNumber() {
+          pageNumber.textContent = `${index + 1} / ${images.length}`;
+        }
+
+        // Move to specific slide
+        function moveToSlide(newIndex) {
+          index = (newIndex + images.length) % images.length;
           slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+          updatePageNumber();
+        }
+
+        // Auto slide transition
+        let interval = setInterval(() => {
+          moveToSlide(index + 1);
         }, 3000);
+
+        // Navigation button events
+        document.getElementById("prevButton").addEventListener("click", () => {
+          clearInterval(interval); // Stop auto-slide temporarily
+          moveToSlide(index - 1);
+          interval = setInterval(() => moveToSlide(index + 1), 3000); // Restart auto-slide
+        });
+
+        document.getElementById("nextButton").addEventListener("click", () => {
+          clearInterval(interval); // Stop auto-slide temporarily
+          moveToSlide(index + 1);
+          interval = setInterval(() => moveToSlide(index + 1), 3000); // Restart auto-slide
+        });
+
+        // Initial page number update
+        updatePageNumber();
       }
 
-      // 이미지 정보 담고있는 JSONP 파일 로드
-      // 이미지 파일이 로드되면 위 callback 함수가 호출되어 슬라이드가 시작되는 구조.
+      // Load JSONP file
       const script = document.createElement("script");
       script.src = "images.js";
       document.body.appendChild(script);

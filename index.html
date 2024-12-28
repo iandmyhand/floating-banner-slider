@@ -60,28 +60,136 @@
         line-height: 1.8;
       }
 
-      .section-floating {
+      /* HR Floating AD Section */
+      #hrFloatingAdSection {
         position: fixed;
         display: grid;
         bottom: 0;
         left: 0;
         padding: 0;
         width: 100%;
-        box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 -3px 7px rgba(0, 0, 0, 0.09);
+        background: #fff;
       }
 
-      .floating-title {
-        padding: 0 0 20px;
+      #hrFloatingAdSection .floating-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 476px;
         width: 100%;
-        height: 36px;
-        background: white;
+        margin: auto;
+        text-align: center;
       }
 
-      .floating-iframe {
-        width: 100%;
-        height: 160px;
-        background: white;
+      #hrFloatingAdSection .floating-header a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 28px;
+        padding: 10px 10px;
+        background: #3d4a5c;
+        border: 1px solid #3d4a5c;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.09);
+        transition: 0.3s;
       }
+
+      #hrFloatingAdSection .floating-header a:hover {
+        background: #2f3947;
+      }
+
+      #hrFloatingAdSection .floating-header a.notice {
+        width: 60px;
+        margin: 16px;
+        background: #f9fafb;
+        border: 1px solid #e9eff6;
+        font-weight: normal;
+        color: #3d4a5c;
+      }
+
+      #hrFloatingAdSection .floating-header a:notice:hover {
+        background: #eaebec;
+      }
+
+      #hrFloatingAdSection .floating-header a.event {
+        width: 100%;
+        max-width: 280px;
+        margin-right: 16px;
+      }
+
+      #hrFloatingAdSection .floating-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background: #1c222b;
+      }
+
+      #hrFloatingAdSection .floating-content .fold-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 40px;
+        padding: 10px 16px;
+        color: #e9eff6;
+        font-size: 12px;
+        border: none;
+        background: #1c222b;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #hrFloatingAdSection .floating-content .fold-button .fold-button-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 400px;
+        width: 100%;
+        margin: auto;
+      }
+
+      #hrFloatingAdSection
+        .floating-content
+        .fold-button
+        .fold-button-content
+        img.chevron {
+        width: 15px;
+        height: 20px;
+        transform: rotate(90deg);
+      }
+
+      #hrFloatingAdSection
+        .floating-content
+        .fold-button
+        .fold-button-content
+        img.chevron.chevron-down {
+        transform: rotate(270deg);
+      }
+
+      #hrFloatingAdSection
+        .floating-content
+        .fold-button.centered
+        .fold-button-content {
+        justify-content: center;
+      }
+
+      #hrFloatingAdSection .floating-content .floating-iframe {
+        max-width: 400px;
+        width: 100%;
+        height: 100px;
+        padding-bottom: 12px;
+        background: #1c222b;
+        border: none;
+        transition: height 0.3s ease;
+      }
+      /* // HR Floating AD Section */
     </style>
   </head>
   <body>
@@ -171,11 +279,59 @@
       <p>이곳에 사는 즐거움이란,<br />삶의 가장 깊은 곳을 만나는 것.</p>
     </section>
 
-    <section class="section-floating">
-      <div class="floating-title">
-        <h4>하단 고정 광고 슬라이더</h4>
+    <section id="hrFloatingAdSection">
+      <div class="floating-header">
+        <a href="#notice" class="notice">공지사항</a>
+        <a href="#event" class="event">행사참여</a>
       </div>
-      <iframe src="ad.html" class="floating-iframe"></iframe>
+      <div class="floating-content">
+        <button
+          id="hrFloatingAdFoldButton"
+          class="fold-button centered"
+          onclick="toggleHrFloatingSection()"
+        >
+          <div class="fold-button-content">
+            <span id="hrFloatingAdFoldText"></span>
+            <span id="hrFloatingAdFoldArrow">
+              <img
+                src="icons/chevron-up.svg"
+                id="hrFloatingAdChevronIcon"
+                class="chevron chevron-down"
+              />
+            </span>
+          </div>
+        </button>
+        <iframe
+          id="hrFloatingAdIframe"
+          src="ad.html"
+          class="floating-iframe"
+        ></iframe>
+      </div>
     </section>
+
+    <script>
+      let hrFloatingAdSecionIsFolded = false;
+
+      function toggleHrFloatingSection() {
+        const iframe = document.getElementById("hrFloatingAdIframe");
+        const button = document.getElementById("hrFloatingAdFoldButton");
+        const foldText = document.getElementById("hrFloatingAdFoldText");
+        const foldArrow = document.getElementById("hrFloatingAdFoldArrow");
+        const chevronIcon = document.getElementById("hrFloatingAdChevronIcon");
+
+        hrFloatingAdSecionIsFolded = !hrFloatingAdSecionIsFolded;
+        if (hrFloatingAdSecionIsFolded) {
+          iframe.style.height = "0";
+          button.classList.remove("centered");
+          foldText.innerText = "방금 본 채용정보";
+          chevronIcon.classList.remove("chevron-down");
+        } else {
+          iframe.style.height = "100px";
+          button.classList.add("centered");
+          foldText.innerText = "";
+          chevronIcon.classList.add("chevron-down");
+        }
+      }
+    </script>
   </body>
 </html>
