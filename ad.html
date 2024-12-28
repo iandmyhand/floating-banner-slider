@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AD</title>
     <style>
-      /* Reset body and html to ensure full height in iframe */
       html,
       body {
         margin: 0;
@@ -46,11 +45,10 @@
     </div>
 
     <script>
-      // JSONP callback function
       function callback(images) {
         const slidesContainer = document.getElementById("slides");
 
-        // Create slides dynamically
+        // 슬라이드 생성
         images.forEach((url) => {
           const slide = document.createElement("div");
           slide.classList.add("slide");
@@ -60,7 +58,7 @@
           slidesContainer.appendChild(slide);
         });
 
-        // Auto-slide logic
+        // 슬라이드 자동넘기기
         let index = 0;
         setInterval(() => {
           index = (index + 1) % images.length;
@@ -68,7 +66,8 @@
         }, 3000);
       }
 
-      // Load the JSONP file dynamically
+      // 이미지 정보 담고있는 JSONP 파일 로드
+      // 이미지 파일이 로드되면 위 callback 함수가 호출되어 슬라이드가 시작되는 구조.
       const script = document.createElement("script");
       script.src = "images.js";
       document.body.appendChild(script);
