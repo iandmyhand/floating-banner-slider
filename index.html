@@ -1,45 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AD Container</title>
+    <title>AD 컨테이너 예제</title>
     <style>
       body {
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+        text-align: center;
+      }
+
+      section {
+        padding: 20px;
       }
 
       h1 {
         margin: 10px 0;
       }
 
+      h2 {
+        margin: 20px 0 10px;
+      }
+
       p {
         margin: 0 0 20px;
-        text-align: center;
-        max-width: 600px;
+        text-align: justify;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.8;
       }
 
       iframe {
-        max-width: 480px;
-        height: 200px;
         border: none;
+      }
+
+      .iframe-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      .tall-iframe {
+        width: 300px;
+        height: 500px;
+      }
+
+      .long-content {
+        height: 100%;
+        padding: 20px;
+        line-height: 1.8;
+      }
+
+      .section-floating {
+        position: fixed;
+        display: grid;
+        bottom: 0;
+        left: 0;
+        padding: 0;
+        width: 100%;
+        box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .floating-title {
+        padding: 0 0 20px;
+        width: 100%;
+        height: 36px;
+        background: white;
+      }
+
+      .floating-iframe {
+        width: 100%;
+        height: 160px;
+        background: white;
       }
     </style>
   </head>
   <body>
-    <h1>AD Slider</h1>
-    <p>
-      This is a simple image slider that automatically transitions through a set
-      of images every 3 seconds. It is designed to fit seamlessly within an
-      iframe and adjusts its size dynamically.
-    </p>
-    <iframe src="ad.html"></iframe>
+    <section>
+      <h1>AD 컨테이너 예제</h1>
+      <p>
+        이 페이지는 여러 크기와 위치로 배치된 광고 슬라이더 예제를 보여줍니다.
+      </p>
+    </section>
+
+    <section>
+      <h2>기본 광고 슬라이더</h2>
+      <div class="iframe-container">
+        <iframe src="ad.html" width="480" height="200"></iframe>
+      </div>
+    </section>
+
+    <section>
+      <h2>세로형 광고 슬라이더</h2>
+      <div class="iframe-container">
+        <iframe src="ad.html" class="tall-iframe"></iframe>
+      </div>
+    </section>
+
+    <section class="long-content">
+      <h2>스크롤 테스트 영역</h2>
+      <p>
+        이 섹션은 긴 내용을 포함하여 페이지의 스크롤 테스트를 위한 영역입니다.
+        광고 슬라이더가 하단에 고정되어 있는지 확인할 수 있습니다.
+      </p>
+      <p>
+        스크롤을 아래로 내리면서 슬라이더가 하단에 고정되어 있는지 확인해
+        보세요. 고정된 슬라이더는 웹 페이지의 광고 배치를 위한 예제입니다.
+      </p>
+      <p>
+        다양한 광고 배치 전략은 사용자의 주목을 끌기 위한 중요한 요소입니다.
+        고정형 광고는 사용자 경험을 해치지 않으면서 효과적인 노출을 제공합니다.
+      </p>
+      <p>
+        현대의 반응형 웹 디자인에서는 크기와 위치의 유연성이 매우 중요합니다. 이
+        예제는 다양한 환경에서 광고 슬라이더의 동작을 확인하는 데 유용합니다.
+      </p>
+      <p>
+        예를 들어, 모바일 장치와 데스크톱에서 광고의 위치와 크기가 적절하게
+        조정되어야 합니다. 이를 통해 사용자는 자연스럽게 콘텐츠를 소비할 수
+        있으며 광고도 쉽게 주목받을 수 있습니다.
+      </p>
+      <p>
+        웹 페이지에서 광고는 단순한 홍보 도구를 넘어 사용자와의 상호작용을
+        유도하는 수단이 됩니다. 예제 슬라이더는 이러한 광고 배치 및 디자인
+        테스트에 적합합니다.
+      </p>
+      <p>
+        콘텐츠와 광고가 자연스럽게 어우러질 때, 사용자 경험이 향상됩니다. 이는
+        높은 클릭률(CTR)과 전환율로 이어질 수 있습니다.
+      </p>
+      <p>
+        지속적인 A/B 테스트와 최적화를 통해 광고 효율성을 극대화하세요. 사용자
+        행동 데이터를 분석하여 가장 효과적인 광고 배치를 찾아보세요.
+      </p>
+      <p>
+        광고 배치는 사용자 경험과 광고 성과의 균형을 유지하는 것이 중요합니다.
+        최적의 배치를 찾기 위해 다양한 구성을 테스트하세요.
+      </p>
+      <p>
+        이 섹션은 광고 디자인, 성과 분석 및 최적화를 위한 다양한 시나리오를
+        고려하여 설계되었습니다. 광고 관리 전략을 수립하는 데 유용한 예제가 될
+        것입니다.
+      </p>
+      <p>
+        더 나은 사용자 경험을 제공하기 위해 레이아웃과 콘텐츠 구성을 지속적으로
+        개선하세요. 웹 페이지 디자인 최적화는 브랜드 이미지와 비즈니스 성과에
+        중요한 영향을 미칩니다.
+      </p>
+      <h3>산에 사는 즐거움</h3>
+      <p>산속 깊은 곳에 작은 집을 지어,<br />구름을 벗 삼아 아침을 맞이하네.</p>
+      <p>새벽 이슬 머금은 풀잎 사이로<br />바람의 노래가 조용히 흐른다.</p>
+      <p>해는 고개를 들어 하늘에 오르고,<br />산새는 노래하며 나를 반긴다.</p>
+      <p>숲의 향기, 나무의 숨결,<br />이 모든 것이 나의 벗이로다.</p>
+      <p>흐르는 시냇물 맑게 웃고,<br />돌 위를 구르며 노래를 한다.</p>
+      <p>나는 물소리를 따라 걷다 보면<br />마음속 번뇌마저 씻겨 내려간다.</p>
+      <p>봄이면 꽃비가 흩날리고,<br />여름엔 푸른 잎이 그늘을 드리운다.</p>
+      <p>가을엔 단풍이 불꽃을 피우고,<br />겨울엔 흰 눈이 마음을 덮어준다.</p>
+      <p>세상의 욕심과 먼지를 털어내고,<br />고요한 마음으로 자연을 본다.</p>
+      <p>시간은 흐르되 흔적을 남기지 않고,<br />나는 이곳에서 나를 찾는다.</p>
+      <p>산은 묵묵히 나를 품어주고,<br />바람은 가만히 내게 말을 건넨다.</p>
+      <p>이곳에 사는 즐거움이란,<br />삶의 가장 깊은 곳을 만나는 것.</p>
+    </section>
+
+    <section class="section-floating">
+      <div class="floating-title">
+        <h4>하단 고정 광고 슬라이더</h4>
+      </div>
+      <iframe src="ad.html" class="floating-iframe"></iframe>
+    </section>
   </body>
 </html>
