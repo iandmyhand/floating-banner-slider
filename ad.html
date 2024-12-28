@@ -37,7 +37,6 @@
         object-fit: contain;
       }
 
-      /* Page number style */
       .page-number {
         position: absolute;
         right: 10px;
@@ -53,7 +52,6 @@
         background: rgba(0, 0, 0, 0.6);
       }
 
-      /* Navigation buttons style */
       .nav-buttons {
         position: absolute;
         top: 10px;
@@ -115,43 +113,44 @@
     </div>
 
     <script>
-      let index = 0; // Current slide index
-      let images = []; // Image URLs array
+      let index = 0; // 현재 슬라이드 인덱스
 
-      // JSONP callback function
-      function callback(imageUrls) {
-        images = imageUrls;
+      // JSONP가 로드되면 호출되는 콜백 함수
+      function callback(imageUrlLinkPairs) {
         const slidesContainer = document.getElementById("slides");
         const pageNumber = document.getElementById("pageNumber");
 
-        // Create slides
-        images.forEach((url) => {
-          const slide = document.createElement("div");
+        // 가져온 이미지 정보로 슬라이드 생성
+        imageUrlLinkPairs.forEach((urlLinkPair) => {
+          const slide = document.createElement("a");
+          slide.target = "_blank";
+          slide.href = urlLinkPair.link;
           slide.classList.add("slide");
           const img = document.createElement("img");
-          img.src = url;
+          img.src = urlLinkPair.imageUrl;
           slide.appendChild(img);
           slidesContainer.appendChild(slide);
         });
 
-        // Update page number
+        // 페이지 번호 업데이트
         function updatePageNumber() {
-          pageNumber.textContent = `${index + 1} / ${images.length}`;
+          pageNumber.textContent = `${index + 1} / ${imageUrlLinkPairs.length}`;
         }
 
-        // Move to specific slide
+        // 주어진 인덱스로 슬라이드 바로 이동
         function moveToSlide(newIndex) {
-          index = (newIndex + images.length) % images.length;
+          index =
+            (newIndex + imageUrlLinkPairs.length) % imageUrlLinkPairs.length;
           slidesContainer.style.transform = `translateX(-${index * 100}%)`;
           updatePageNumber();
         }
 
-        // Auto slide transition
+        // 자동 슬라이드 전환
         let interval = setInterval(() => {
           moveToSlide(index + 1);
         }, 3000);
 
-        // Navigation button events
+        // 이전, 다음 버튼 이벤트 핸들러 등록
         document.getElementById("prevButton").addEventListener("click", () => {
           clearInterval(interval); // Stop auto-slide temporarily
           moveToSlide(index - 1);
@@ -164,11 +163,11 @@
           interval = setInterval(() => moveToSlide(index + 1), 3000); // Restart auto-slide
         });
 
-        // Initial page number update
+        // 최초 페이지 번호 업데이트
         updatePageNumber();
       }
 
-      // Load JSONP file
+      // JSONP 불러오기
       const script = document.createElement("script");
       script.src = "images.js";
       document.body.appendChild(script);

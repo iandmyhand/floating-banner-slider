@@ -105,6 +105,7 @@
 
       #hrFloatingAdSection .floating-header a.notice {
         width: 60px;
+        min-width: 60px;
         margin: 16px;
         background: #f9fafb;
         border: 1px solid #e9eff6;
@@ -188,6 +189,7 @@
         background: #1c222b;
         border: none;
         transition: height 0.3s ease;
+        transition: padding-bottom 0.3s ease;
       }
       /* // HR Floating AD Section */
     </style>
@@ -279,10 +281,11 @@
       <p>이곳에 사는 즐거움이란,<br />삶의 가장 깊은 곳을 만나는 것.</p>
     </section>
 
+    <!-- HR Floating AD Section -->
     <section id="hrFloatingAdSection">
       <div class="floating-header">
-        <a href="#notice" class="notice">공지사항</a>
-        <a href="#event" class="event">행사참여</a>
+        <a href="https://www.naver.com" class="notice">공지사항</a>
+        <a href="https://www.google.com" class="event">행사참여</a>
       </div>
       <div class="floating-content">
         <button
@@ -322,16 +325,19 @@
         hrFloatingAdSecionIsFolded = !hrFloatingAdSecionIsFolded;
         if (hrFloatingAdSecionIsFolded) {
           iframe.style.height = "0";
+          iframe.style.paddingBottom = "0";
           button.classList.remove("centered");
           foldText.innerText = "방금 본 채용정보";
           chevronIcon.classList.remove("chevron-down");
         } else {
           iframe.style.height = "100px";
+          iframe.style.paddingBottom = "12px";
           button.classList.add("centered");
           foldText.innerText = "";
           chevronIcon.classList.add("chevron-down");
         }
       }
     </script>
+    <!-- // HR Floating AD Section -->
   </body>
 </html>
