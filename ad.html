@@ -116,14 +116,15 @@
       let index = 0; // Current slide index
       let startX = 0; // Starting X coordinate for touch
       let endX = 0; // Ending X coordinate for touch
+      let interval; // Auto-slide interval variable
 
       // JSONP callback function
       function callback(imageUrlLinkPairs) {
-        const slidesContainer = document.getElementById("slides");
-        const pageNumber = document.getElementById("pageNumber");
-
         // Shuffle images randomly
         imageUrlLinkPairs = imageUrlLinkPairs.sort(() => Math.random() - 0.5);
+
+        const slidesContainer = document.getElementById("slides");
+        const pageNumber = document.getElementById("pageNumber");
 
         // Generate slides from the shuffled image data
         imageUrlLinkPairs.forEach((urlLinkPair) => {
@@ -150,6 +151,12 @@
           updatePageNumber();
         }
 
+        // Restart Auto-Slide with Delay
+        function restartAutoSlide() {
+          clearInterval(interval); // Stop the previous interval
+          interval = setInterval(() => moveToSlide(index + 1), 3000); // Restart auto-slide
+        }
+
         // Automatic sliding
         let interval = setInterval(() => {
           moveToSlide(index + 1);
@@ -159,28 +166,34 @@
         document.getElementById("prevButton").addEventListener("click", () => {
           clearInterval(interval); // Stop auto-slide temporarily
           moveToSlide(index - 1);
-          interval = setInterval(() => moveToSlide(index + 1), 3000); // Restart auto-slide
+          interval = setInterval(restartAutoSlide, 3000); // Restart auto-slide
         });
 
-        document.getElementById("nextButton").addEventListener("click", () => {
-          clearInterval(interval); // Stop auto-slide temporarily
-          moveToSlide(index + 1);
-          interval = setInterval(() => moveToSlide(index + 1), 3000); // Restart auto-slide
-        });
+        document
+          .getElementById("nextButton")
+          .addEventListener("click", (event) => {
+            event.preventDefault();
+            clearInterval(interval); // Stop auto-slide temporarily
+            moveToSlide(index + 1);
+            interval = setInterval(restartAutoSlide, 3000); // Restart auto-slide
+          });
 
-        // **Touch event handlers for swipe support**
+        // Touch event handlers for swipe support
         const slider = document.querySelector(".slider");
 
-        slider.addEventListener("touchstart", (e) => {
+        slider.addEventListener("touchstart", (event) => {
+          event.preventDefault();
           clearInterval(interval); // Pause auto-slide
-          startX = e.touches[0].clientX; // Store starting X coordinate
+          startX = event.touches[0].clientX; // Store starting X coordinate
         });
 
-        slider.addEventListener("touchmove", (e) => {
-          endX = e.touches[0].clientX; // Track ending X coordinate
+        slider.addEventListener("touchmove", (event) => {
+          event.preventDefault();
+          endX = event.touches[0].clientX; // Track ending X coordinate
         });
 
-        slider.addEventListener("touchend", () => {
+        slider.addEventListener("touchend", (event) => {
+          event.preventDefault();
           const diffX = startX - endX; // Calculate swipe distance
 
           if (diffX > 50) {
