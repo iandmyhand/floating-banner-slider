@@ -122,7 +122,10 @@
         const slidesContainer = document.getElementById("slides");
         const pageNumber = document.getElementById("pageNumber");
 
-        // Generate slides from the fetched image data
+        // Shuffle images randomly
+        imageUrlLinkPairs = imageUrlLinkPairs.sort(() => Math.random() - 0.5);
+
+        // Generate slides from the shuffled image data
         imageUrlLinkPairs.forEach((urlLinkPair) => {
           const slide = document.createElement("a");
           slide.target = "_blank";
