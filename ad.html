@@ -11,33 +11,108 @@
         padding: 0;
         width: 100%;
         height: 100%;
+        background: #fff;
       }
 
-      .slider {
+      /* HR Floating AD Section */
+      #hrFloatingAdSection {
         position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        padding: 0;
+        box-shadow: 0 -3px 7px rgba(0, 0, 0, 0.09);
+      }
+
+      #hrFloatingAdSection .floating-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 476px;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+      }
+
+      #hrFloatingAdSection .floating-header a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 28px;
+        padding: 10px 10px;
+        background: #3d4a5c;
+        border: 1px solid #3d4a5c;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.09);
+        transition: 0.3s;
+      }
+
+      #hrFloatingAdSection .floating-header a:hover {
+        background: #2f3947;
+      }
+
+      #hrFloatingAdSection .floating-header a.notice {
+        width: 60px;
+        min-width: 60px;
+        margin: 16px;
+        background: #f9fafb;
+        border: 1px solid #e9eff6;
+        font-weight: normal;
+        color: #3d4a5c;
+      }
+
+      #hrFloatingAdSection .floating-header a:notice:hover {
+        background: #eaebec;
+      }
+
+      #hrFloatingAdSection .floating-header a.event {
+        width: 100%;
+        max-width: 280px;
+        margin-right: 16px;
+      }
+
+      #hrFloatingAdSection .floating-content {
+        position: relative;
+        flex-grow: 1;
         overflow: hidden;
         width: 100%;
-        height: 100%;
+        padding: 16px 0;
+        margin: auto;
+        background: #1c222b;
       }
 
-      .slides {
+      #hrFloatingAdSection .floating-content .slider {
+        position: relative;
+        overflow: hidden;
+        max-width: 400px;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+      }
+
+      #hrFloatingAdSection .floating-content .slider .slides {
         display: flex;
         transition: transform 0.5s ease-in-out;
         height: 100%;
       }
 
-      .slide {
+      #hrFloatingAdSection .floating-content .slider .slides .slide {
         flex: 0 0 100%;
         height: 100%;
       }
 
-      img {
+      #hrFloatingAdSection .floating-content .slider .slides .slide img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
 
-      .page-number {
+      #hrFloatingAdSection .floating-content .slider .page-number {
         position: absolute;
         right: 10px;
         bottom: 10px;
@@ -52,7 +127,7 @@
         background: rgba(0, 0, 0, 0.6);
       }
 
-      .nav-buttons {
+      #hrFloatingAdSection .floating-content .slider .nav-buttons {
         position: absolute;
         top: 10px;
         right: 10px;
@@ -60,7 +135,7 @@
         gap: 5px;
       }
 
-      .nav-button {
+      #hrFloatingAdSection .floating-content .slider .nav-buttons .nav-button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -71,46 +146,77 @@
         cursor: pointer;
       }
 
-      .nav-button:last-child {
+      #hrFloatingAdSection
+        .floating-content
+        .slider
+        .nav-buttons
+        .nav-button:last-child {
         padding: 2px 4px 2px 5px;
       }
 
-      .nav-button:hover {
+      #hrFloatingAdSection
+        .floating-content
+        .slider
+        .nav-buttons
+        .nav-button:hover {
         background: rgba(0, 0, 0, 0.8);
       }
 
-      img.chevron {
+      #hrFloatingAdSection
+        .floating-content
+        .slider
+        .nav-buttons
+        .nav-button
+        img.chevron {
         width: 15px;
         height: 20px;
       }
 
-      img.chevron.chevron-left {
+      #hrFloatingAdSection
+        .floating-content
+        .slider
+        .nav-buttons
+        .nav-button
+        img.chevron.chevron-left {
         transform: rotate(0deg);
       }
 
-      img.chevron.chevron-right {
+      #hrFloatingAdSection
+        .floating-content
+        .slider
+        .nav-buttons
+        .nav-button
+        img.chevron.chevron-right {
         transform: rotate(180deg);
       }
     </style>
   </head>
   <body>
-    <div class="slider">
-      <!-- Slides Container -->
-      <div id="slides" class="slides"></div>
-
-      <!-- Page Number -->
-      <div id="pageNumber" class="page-number">1/1</div>
-
-      <!-- Navigation Buttons -->
-      <div class="nav-buttons">
-        <button id="prevButton" class="nav-button">
-          <img src="icons/chevron-up.svg" class="chevron chevron-left" />
-        </button>
-        <button id="nextButton" class="nav-button">
-          <img src="icons/chevron-up.svg" class="chevron chevron-right" />
-        </button>
+    <section id="hrFloatingAdSection">
+      <div class="floating-header">
+        <a href="https://www.naver.com" class="notice">공지사항</a>
+        <a href="https://www.google.com" class="event">행사참여</a>
       </div>
-    </div>
+      <div class="floating-content">
+        <div class="slider">
+          <!-- Slides Container -->
+          <div id="slides" class="slides"></div>
+
+          <!-- Page Number -->
+          <div id="pageNumber" class="page-number">1/1</div>
+
+          <!-- Navigation Buttons -->
+          <div class="nav-buttons">
+            <button id="prevButton" class="nav-button">
+              <img src="icons/chevron-up.svg" class="chevron chevron-left" />
+            </button>
+            <button id="nextButton" class="nav-button">
+              <img src="icons/chevron-up.svg" class="chevron chevron-right" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script>
       let index = 0; // Current slide index
@@ -163,11 +269,14 @@
         }, 3000);
 
         // Button click handlers
-        document.getElementById("prevButton").addEventListener("click", () => {
-          clearInterval(interval); // Stop auto-slide temporarily
-          moveToSlide(index - 1);
-          interval = setInterval(restartAutoSlide, 3000); // Restart auto-slide
-        });
+        document
+          .getElementById("prevButton")
+          .addEventListener("click", (event) => {
+            event.preventDefault();
+            clearInterval(interval); // Stop auto-slide temporarily
+            moveToSlide(index - 1);
+            interval = setInterval(restartAutoSlide, 3000); // Restart auto-slide
+          });
 
         document
           .getElementById("nextButton")
@@ -182,17 +291,22 @@
         const slider = document.querySelector(".slider");
 
         slider.addEventListener("touchstart", (event) => {
+          console.log("touchstart event", event);
+          if (event.target.classList.contains("chevron")) return;
           event.preventDefault();
           clearInterval(interval); // Pause auto-slide
           startX = event.touches[0].clientX; // Store starting X coordinate
         });
 
         slider.addEventListener("touchmove", (event) => {
+          if (event.target.classList.contains("chevron")) return;
           event.preventDefault();
           endX = event.touches[0].clientX; // Track ending X coordinate
         });
 
         slider.addEventListener("touchend", (event) => {
+          console.log("touchend event", event);
+          if (event.target.classList.contains("chevron")) return;
           event.preventDefault();
           const diffX = startX - endX; // Calculate swipe distance
 
